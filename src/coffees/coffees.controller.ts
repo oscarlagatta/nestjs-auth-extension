@@ -10,6 +10,8 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { ActiveUser } from '../iam/decorators/active-user.decorator';
+import { ActiveUserData } from '../iam/interfaces/active-user.data';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -21,7 +23,8 @@ export class CoffeesController {
   }
 
   @Get()
-  findAll() {
+  findAll(@ActiveUser() user: ActiveUserData) {
+    console.log(user);
     return this.coffeesService.findAll();
   }
 
