@@ -71,10 +71,13 @@ export class AuthenticationService {
       this.signToken<Partial<ActiveUserData>>(
         user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.email, role: user.role },
+        {
+          email: user.email,
+          role: user.role,
+          // ⚠️ WARNING
+          permissions: user.permissions, // 👈👈👈
+        },
       ),
-      // Ideally we should add an interface describing the RefreshToken Payload
-      // structure.
       this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl, {
         refreshTokenId,
       }),
